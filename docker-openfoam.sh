@@ -87,17 +87,18 @@ readonly OPENFOAM_CONTAINER_NAME="my_container"
 sudo docker container run --env-file ./env.list -it -u 0 --rm -d --name="$OPENFOAM_CONTAINER_NAME" "$OPENFOAM_IMAGE_ID" bash
 
 
-#add environment variables
+#add environment variables and move necessary files
 sudo docker exec -i "$OPENFOAM_CONTAINER_NAME" echo "Adding required environment variables..."
 sudo docker exec -it "$OPENFOAM_CONTAINER_NAME" bash -c "cd /opt/openfoam7/ && touch env.list && env >> ./env.list"
+sudo docker exec -it "$OPENFOAM_CONTAINER_NAME" bash -c "mkdir /home/openfoam/system/"
+sudo docker exec -it "$OPENFOAM_CONTAINER_NAME" bash -c "cp /opt/openfoam7/etc/controlDict /home/openfoam/system/"
 
 
 #echo exec to ensure internal exec commands are working
 sudo docker exec -i "$OPENFOAM_CONTAINER_NAME" echo "Connected to container successfully! Running simulation..."
 
 #define env vars, run sim
-sudo docker exec -it my_container bash -c "/opt/openfoam7/tutorials/incompressible/simpleFoam/rotorDisk/Allclean && /opt/openfoam7/tutorials/incompressible/simpleFoam/rotorDisk/Allrun"
-sudo docker exec -it my_container bash -c "/opt/openfoam7/platforms/linux64GccDPInt32Opt/bin/foamToVTK"
+sudo docker exec -it my_container bash -c "/opt/openfoam7/tutorials/incompressible/icoFoam/elbow/Allclean && /opt/openfoam7/tutorials/incompressible/icoFoam/elbow/Allrun"
 
 #copy VTK file to host machine - NOT NECESSARY
 #sudo docker cp my_container:/opt/openfoam7/tutorials/incompressible/simpleFoam/rotorDisk/VTK .
