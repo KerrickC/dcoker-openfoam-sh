@@ -124,5 +124,9 @@ fi
 sleep 2s
 echo "Exiting docker container...\n"
 
+#show Steam Locomotive
+sudo apt-get install sl
+sl
+
 #stop container
 sudo docker container stop my_container
