@@ -116,7 +116,7 @@ sleep 3s
 if sudo docker cp $OPENFOAM_CONTAINER_NAME:/opt/openfoam7/tutorials/incompressible/icoFoam/elbow .; then
     echo "\nSuccess!\n\nYou can find the results in /openfoam_resuts.\n"
 else
-    echo "\nCannot export data! Exiting container..."
+    echo "\nCannot export data! Exiting container... /n"
     sudo docker container stop my_container
     exit 1
 fi
