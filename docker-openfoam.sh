@@ -110,7 +110,7 @@ sleep 2s
 echo "Exporting files to /openfoam_results"
 sleep 2s
 cd /
-mkdir -p openfoam_results && cd openfoam_results
+sudo mkdir -p openfoam_results && cd openfoam_results
 #echo message
 sleep 3s
 if sudo docker cp $OPENFOAM_CONTAINER_NAME:/opt/openfoam7/tutorials/incompressible/icoFoam/elbow .; then
